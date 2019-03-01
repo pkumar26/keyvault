@@ -7,6 +7,16 @@
 >
 >Policies can be added or removed both at the time of KeyVault creation or anytime later. Modify them as per your need.
 
+**Find your object ID**
+
+PowerShell
+
+    (Get-AzADUser -UserPrincipalName 'your_email_id').Id
+
+Bash:
+
+    az ad user show --upn 'your_email_id' --query 'objectId'
+
 **Setup deployment variables for Azure KeyVault:**
 >Change templatePath and other values as per your environment
 

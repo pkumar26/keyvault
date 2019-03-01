@@ -1,6 +1,11 @@
 ## Create Azure KeyVault
 
->Explore contents of kvDeploy & kvDeploy.param.json in your favourite editor. Edit parameter values in kvDeploy.param.json as needed.
+>Explore contents of kvDeploy & kvDeploy.param.json in your favourite editor. Edit parameter values in kvDeploy.param.json as needed. \
+>This template has two access policies:
+>-   One for giving full access to yourself and
+>-   Second for a limited access to your application.
+>
+>Policies can be added or removed both at the time of KeyVault creation or anytime later. Modify them as per your need.
 
 **Setup deployment variables for Azure KeyVault:**
 >Change templatePath and other values as per your environment
@@ -57,6 +62,12 @@ Bash:
     --template-file $template \
     --parameters @$templateParameter \
     --no-wait ```
+
+>Once KeyVault is created successfully, browse the resource on Azure portal and verify that the access policies there matches what you had specified in the template. Here is a snapshot of how it'll look like:
+
+![](kv_access.jpg)
+
+
 <br>
 <br>
 <br>

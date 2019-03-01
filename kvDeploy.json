@@ -1,0 +1,71 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "kvName": {
+           "type": "string",
+           "metadata": {
+                "description": "Name of the KeyVault"
+            }
+        },
+        "SPtenantId": {
+           "type": "string",
+           "metadata": {
+                "description": "Tenant ID of Service Principal"
+            }
+        },
+        "SPObjectID": {
+           "type": "string",
+           "metadata": {
+                "description": "Object ID of Service Principal"
+            }
+        },
+        "userObjectID": {
+           "type": "string",
+           "metadata": {
+                "description": "Object ID of the User"
+            }
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+           "type": "Microsoft.KeyVault/vaults",
+           "apiVersion": "2015-06-01",
+           "name": "[parameters('kvName')]",
+           "location": "[resourceGroup().location]",
+           "tags": {
+                "displayName": "[parameters('kvName')]"
+           },
+           "properties": {
+                "enabledForDeployment": true,
+                "enabledForTemplateDeployment": true,
+                "enabledForDiskEncryption": true,
+                "tenantId": "[parameters('SPtenantId')]",
+                "accessPolicies": [
+                    {
+                        "tenantId": "[parameters('SPtenantId')]",
+                        "objectId": "[parameters('SPObjectID')]",
+                        "permissions": {
+                           "keys": ["get"],
+                           "secrets": ["get", "set", "list"]
+                       }
+                    },
+                    {
+                        "tenantId": "[parameters('SPtenantId')]",
+                        "objectId": "[parameters('userObjectID')]",
+                        "permissions": {
+                           "keys": ["all"],
+                           "secrets": ["all"]
+                       }
+                    }
+                ],
+                "sku": {
+                    "name": "standard",
+                    "family": "A"
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}

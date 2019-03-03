@@ -56,7 +56,8 @@
                         "objectId": "[parameters('userObjectID')]",
                         "permissions": {
                            "keys": ["all"],
-                           "secrets": ["all"]
+                           "secrets": ["all"],
+                           "certificates": ["all"]
                        }
                     }
                 ],
